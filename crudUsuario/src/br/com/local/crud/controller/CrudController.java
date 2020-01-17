@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CrudController {
 
-	@RequestMapping("olaMundoSpring")
+	@RequestMapping("index")
 	public String test(){
 		System.out.println("Executando a lógica com Spring MVC.");
-		return "olaMundo";
+		return "index";
 	}
-	
-	
+
+
 }

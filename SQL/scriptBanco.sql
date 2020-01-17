@@ -13,5 +13,6 @@ create table telefones(
 	id int primary key auto_increment,
 	id_usuario int,
 	telefone varchar(13),
+	tipo varchar(7),
 	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
 );
