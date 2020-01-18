@@ -51,7 +51,7 @@
                 senha.focus();
                 return false;
             }else{
-                if(confirm("Confirma a criação desse usuario?")){
+                if(confirm("Cadastrar desse usuario?")){
                     return true
                 }
             }
@@ -106,7 +106,7 @@
                                    class="form-control"
                                    placeholder="8888-8888" required="required"/><br>
                             <lable>Tipo:</lable>
-                            <select class="form-control" name="tipo" style="width: 500px;">
+                            <select class="form-control" required="required" name="tipo" style="width: 500px;">
                                 <option value="">-------------Selecione-----------</option>
                                 <option value="1">
                                     Celular

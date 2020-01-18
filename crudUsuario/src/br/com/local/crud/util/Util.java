@@ -57,4 +57,15 @@ public class Util {
         return phones;
     }
 
+    public static List<Telefone> trataPhoneAlteracao(List<Telefone> tels){
+
+        List<Telefone> retorno = new ArrayList<>();
+
+            for (int i = 1; i < tels.size(); i++){
+                retorno.add(tels.get(i));
+            }
+
+        return retorno;
+    }
+
 }

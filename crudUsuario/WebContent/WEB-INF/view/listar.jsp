@@ -59,7 +59,7 @@
 
                 </td>
                 <td>
-                    <form action="">
+                    <form action="exibirAlterar" method="POST">
                         <input type="hidden" name="id" value="${usuario.id}">
                         <button type="submit" class="btn-warning">Alterar</button>
                     </form>

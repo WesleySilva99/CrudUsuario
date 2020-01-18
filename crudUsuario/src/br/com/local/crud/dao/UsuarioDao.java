@@ -89,4 +89,25 @@ public class UsuarioDao {
 
     }
 
+    public Usuario buscarPorId(int id) {
+        Usuario obj = null;
+        EntityManagerFactory factory =
+                Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+        EntityManager manager = factory.createEntityManager();
+        obj = manager.find(Usuario.class, id);
+        return obj;
+    }
+
+    public void alterar(Usuario u) {
+        EntityManagerFactory factory =
+                Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+        EntityManager manager = factory.createEntityManager();
+
+        manager.getTransaction().begin();
+        manager.merge(u);
+        manager.getTransaction().commit();
+        manager.close();
+        factory.close();
+    }
+
 }

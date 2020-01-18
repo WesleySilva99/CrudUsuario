@@ -66,4 +66,34 @@ public class UsuarioController {
         return "forward:listarUsuario";
     }
 
+    @RequestMapping("exibirAlterar")
+    public String exibirAlterar(@RequestParam(value = "id") int id, Model model){
+
+        UsuarioDao dao = new UsuarioDao();
+
+        Usuario u = dao.buscarPorId(id);
+
+        model.addAttribute("usuario", u);
+        if(u.getTelefones().size() > 1)
+            model.addAttribute("phones", Util.trataPhoneAlteracao(u.getTelefones()));
+
+        return "alterar";
+    }
+
+    @RequestMapping("updateUser")
+    public String update(Usuario u, @RequestParam(value = "ddd") String[] ddd,
+                         @RequestParam(value = "telefone")  String[] telefone, @RequestParam(value = "tipo")  String[] tipo, Model model){
+
+        UsuarioDao dao = new UsuarioDao();
+
+        u.setTelefones(Util.createASavePhoneList(ddd,telefone,tipo));
+
+        dao.alterar(u);
+
+        model.addAttribute("mensagem", "Usuario atualizado com sucesso!");
+
+        return "forward:listarUsuario";
+    }
+
+
 }
