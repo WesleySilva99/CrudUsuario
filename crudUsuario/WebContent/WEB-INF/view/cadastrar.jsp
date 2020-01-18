@@ -41,6 +41,26 @@
             document.getElementById("setPhone").appendChild(clone);
 
         }
+
+        function validaSenha(){
+            var senha = document.getElementById("senha");
+            var senha2 = document.getElementById("senha2");
+
+            if(senha.value != senha2.value){
+                alert("As senhas não conferem, digite corretamente");
+                senha.focus();
+                return false;
+            }else{
+                if(confirm("Confirma a criação desse usuario?")){
+                    return true
+                }
+            }
+
+            return false;
+
+
+
+        }
     </script>
 
 </head>
@@ -52,7 +72,7 @@
 <center>
         <fieldset>
             <legend>Cadastrar Usuario</legend>
-            <form action="cadastrarUsuario" method="POST" id="form">
+            <form action="cadastrarUsuario" method="POST" id="form" onsubmit="return validaSenha()">
                     <div class="form-group">
                         <lable>Nome:</lable>
                         <input type="text" name="nome" style="width: 500px;" maxlength="100" class="form-control"
@@ -66,7 +86,12 @@
 
                     <div class="form-group">
                         <lable>Senha:</lable>
-                        <input type="password" name="senha" style="width: 500px;" maxlength="100" class="form-control"
+                        <input type="password" name="senha" id="senha" style="width: 500px;" maxlength="100" class="form-control"
+                               placeholder="*********" required="required"><br>
+                    </div>
+                    <div class="form-group">
+                        <lable>Repetir Senha:</lable>
+                        <input type="password" name="senah2" id="senha2"style="width: 500px;" maxlength="100" class="form-control"
                                placeholder="*********" required="required"><br>
                     </div>
                     <table id="phones" border="1">

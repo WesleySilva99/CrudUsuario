@@ -45,6 +45,21 @@ public class UsuarioDao {
 
     }
 
+    public void deleteUser(int id){
+
+        EntityManagerFactory factory =
+                Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+        EntityManager manager = factory.createEntityManager();
+
+        Usuario user = manager.find(Usuario.class, id);
+        manager.getTransaction().begin();
+        manager.remove(user);
+        manager.getTransaction().commit();
+        manager.close();
+        factory.close();
+
+    }
+
     public Usuario getOnlyOneUser(Usuario usuario){
 
         List<Usuario> lista = null;

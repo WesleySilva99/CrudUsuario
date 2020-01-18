@@ -55,4 +55,15 @@ public class UsuarioController {
 
     }
 
+    @RequestMapping("deleteUser")
+    public String delete(@RequestParam(value = "id") int id, Model model){
+        UsuarioDao dao = new UsuarioDao();
+
+        dao.deleteUser(id);
+
+        model.addAttribute("mensagem", "Usuario excluido com sucesso");
+
+        return "forward:listarUsuario";
+    }
+
 }

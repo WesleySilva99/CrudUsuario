@@ -11,8 +11,14 @@ create table usuarios(
 
 create table telefones(
 	id int primary key auto_increment,
-	id_usuario int,
-	telefone varchar(13),
+	numero varchar(13),
 	tipo varchar(7),
-	FOREIGN KEY (id_usuario) REFERENCES usuarios(id)
+	ddd varchar(4)
+);
+
+create table usuario_telefone(
+	id_usuario int,
+	id_telefone int,
+	FOREIGN KEY (id_usuario) REFERENCES usuarios(id),
+	FOREIGN KEY (id_telefone) REFERENCES telefones(id)
 );

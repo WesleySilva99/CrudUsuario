@@ -18,8 +18,10 @@
             <th>Id</th>
             <th>Nome</th>
             <th>Email</th>
+            <th>DDD's</th>
             <th>Telefones</th>
-            <th>Ações</th>
+            <th>Tipos</th>
+            <th>Acoes</th>
         </tr>
         <c:forEach var="usuario" items="${usuarios}">
             <tr>
@@ -32,39 +34,36 @@
                 <td>
                         ${usuario.email}
                 </td>
-                <c:forEach var="phone" items="${usuario.telefones}">
-                    <td>
-                        <c:forEach var="ddd" items="${phone.ddd}">
-                            ${ddd} <br>
-                        </c:forEach>
+                <td>
+                    <c:forEach var="data" items="${usuario.telefones}">
+                        ${data.ddd} <br>
+                    </c:forEach>
 
-                    </td>
-                    <td>
-                        <c:forEach var="numero" items="${phone.numero}">
-                            ${numero} <br>
-                        </c:forEach>
-                    </td>
-                    <td>
-                        <c:forEach var="tipo" items="${phone.tipo}">
-                            <c:choose>
-                                <c:when test="${tipo == '1'}">
-                                    Celular <br>
-                                </c:when>
-                                <c:otherwise>
-                                    Fixo <br>
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
+                </td>
+                <td>
+                    <c:forEach var="data" items="${usuario.telefones}">
+                        ${data.numero} <br>
+                    </c:forEach>
+                </td>
+                <td>
+                    <c:forEach var="data" items="${usuario.telefones}">
+                        <c:choose>
+                            <c:when test="${data.tipo == '1'}">
+                                Celular <br>
+                            </c:when>
+                            <c:otherwise>
+                                Fixo <br>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
 
-
-                    </td>
-                </c:forEach>
+                </td>
                 <td>
                     <form action="">
                         <input type="hidden" name="id" value="${usuario.id}">
                         <button type="submit" class="btn-warning">Alterar</button>
                     </form>
-                    <form action="">
+                    <form action="deleteUser" method="POST">
                         <input type="hidden" name="id" value="${usuario.id}">
                         <button type="submit" class="btn-danger">Excluir</button>
                     </form>
