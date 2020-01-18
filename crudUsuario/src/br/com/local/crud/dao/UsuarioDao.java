@@ -19,7 +19,6 @@ public class UsuarioDao {
     public void salvar(Usuario usuario) {
 
         usuario.setSenha(Util.gerarSenhaHasheada(usuario.getSenha()));
-        System.out.println("Nova senha: " + usuario.getSenha());
         EntityManagerFactory factory =
                 Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
         EntityManager manager = factory.createEntityManager();
@@ -39,9 +38,9 @@ public class UsuarioDao {
         EntityManager manager = factory.createEntityManager();
         lista = manager.createQuery("FROM Usuario ORDER BY id").getResultList();
 
-        manager.close();
+        // manager.close();
 
-        factory.close();
+        // factory.close();
         return lista;
 
     }

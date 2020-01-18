@@ -20,16 +20,22 @@ public class Usuario {
     @Column
     private String senha;
 
-    /*
-
-    @OneToMany
-    @JoinTable(
-            name="telefones",
-            joinColumns = @JoinColumn( name="id_usuario"),
-            inverseJoinColumns = @JoinColumn( name="id")
-    )
+    @OneToMany(cascade=CascadeType.ALL)
+    @JoinTable(name="usuario_telefone",
+            joinColumns={@JoinColumn(name="id_usuario",
+                    referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="id_telefone",
+                    referencedColumnName="id")})
     private List<Telefone> telefones;
-    */
+
+    public List<Telefone> getTelefones() {
+        return telefones;
+    }
+
+    public void setTelefones(List<Telefone> telefones) {
+        this.telefones = telefones;
+    }
+
     public int getId() {
         return id;
     }

@@ -1,7 +1,11 @@
 package br.com.local.crud.util;
 
+import br.com.local.crud.model.Telefone;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Util {
 
@@ -33,6 +37,24 @@ public class Util {
 
         return retorno;
 
+    }
+
+    public static List<Telefone> createASavePhoneList(String[] ddd, String[] numero, String[] tipo){
+
+        List<Telefone> phones = new ArrayList<>();
+
+        for(int i = 0; i < ddd.length; i++){
+
+            Telefone phone = new Telefone();
+            phone.setDdd(ddd[i]);
+            phone.setTipo(tipo[i]);
+            phone.setNumero(numero[i]);
+
+            phones.add(phone);
+
+        }
+
+        return phones;
     }
 
 }
