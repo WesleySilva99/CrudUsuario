@@ -20,7 +20,7 @@ public class Util {
         return s.toString();
     }
 
-    public static byte[] gerarHash(String frase) {
+    private static byte[] gerarHash(String frase) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(frase.getBytes());

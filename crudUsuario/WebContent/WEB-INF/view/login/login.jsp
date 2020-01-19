@@ -9,10 +9,10 @@
 <html>
 <body>
 <c:import url="../header.jsp"/>
-<c:if test="${mensagem != null}">
-    <h2>${mensagem}</h2>
-</c:if>
 <center>
+    <c:if test="${mensagem != null}">
+        <h2>${mensagem}</h2>
+    </c:if>
 <fieldset>
     <legend>Login</legend>
 <form action="loga" method="POST">

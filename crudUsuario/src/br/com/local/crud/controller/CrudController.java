@@ -8,7 +8,11 @@ public class CrudController {
 
 	@RequestMapping("index")
 	public String test(){
-		System.out.println("Executando a lógica com Spring MVC.");
+		return "index";
+	}
+
+	@RequestMapping("")
+	public String index(){
 		return "index";
 	}
 

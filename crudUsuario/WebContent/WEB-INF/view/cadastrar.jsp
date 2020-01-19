@@ -10,6 +10,36 @@
 
         var contDiv = 0;
 
+        function tecla(){
+            evt = window.event;
+            var tecla = evt.keyCode;
+
+            if(!(tecla > 47 && tecla < 58)){
+                //alert('Precione apenas teclas numéricas');
+                evt.preventDefault();
+            }
+        }
+
+        function mascaraDdd(ddd) {
+
+            if(ddd.value.length == 0){
+                ddd.value = "(";
+            }
+
+            if (ddd.value.length == 3){
+                ddd.value += ")";
+            }
+
+        }
+
+        function mascaraTelf(telf){
+
+            if(telf.value.length == 4){
+                telf.value += "-";
+            }
+
+        }
+
         function acept() {
             if (confirm("Tem certeza que quer zerar os dados desse usuario?")) {
                 return true;
@@ -51,7 +81,7 @@
                 senha.focus();
                 return false;
             }else{
-                if(confirm("Cadastrar desse usuario?")){
+                if(confirm("Cadastrar esse usuario?")){
                     return true
                 }
             }
@@ -66,10 +96,10 @@
 </head>
 <body>
 <c:import url="header.jsp"/>
-<c:if test="${mensagem != null}">
-    <h2>${mensagem}</h2>
-</c:if>
 <center>
+    <c:if test="${mensagem != null}">
+        <h2>${mensagem}</h2>
+    </c:if>
         <fieldset>
             <legend>Cadastrar Usuario</legend>
             <form action="cadastrarUsuario" method="POST" id="form" onsubmit="return validaSenha()">
@@ -86,24 +116,24 @@
 
                     <div class="form-group">
                         <lable>Senha:</lable>
-                        <input type="password" name="senha" id="senha" style="width: 500px;" maxlength="100" class="form-control"
+                        <input type="password" name="senha" id="senha" style="width: 500px;" minlength="8" maxlength="100" class="form-control"
                                placeholder="*********" required="required"><br>
                     </div>
                     <div class="form-group">
                         <lable>Repetir Senha:</lable>
-                        <input type="password" name="senah2" id="senha2"style="width: 500px;" maxlength="100" class="form-control"
+                        <input type="password" name="senah2" id="senha2"style="width: 500px;" minlength="8" maxlength="100" class="form-control"
                                placeholder="*********" required="required"><br>
                     </div>
+                    <h3>Telefones</h3>
                     <table id="phones" border="1">
                         <tr>
                             <td>
-                            Telefones
                             <lable>DDD:</lable>
                             <input type="text" name="ddd" style="width: 500px" maxlength="4" minlength="2" class="form-control"
-                                   placeholder="(00)" required="required"/><br>
-                            <lable>Telefone:</lable>
-                            <input type="text" name="telefone" style="width: 500px;" maxlength="10" minlength="8"
-                                   class="form-control"
+                                   placeholder="(00)" onkeypress="tecla(); mascaraDdd(this)" required="required"/><br>
+                            <lable>Telefone: <h6>* Apenas 8 dígitos</h6></lable>
+                            <input type="text" name="telefone" style="width: 500px;" maxlength="9" minlength="8"
+                                   class="form-control" onkeypress="tecla(); mascaraTelf(this)"
                                    placeholder="8888-8888" required="required"/><br>
                             <lable>Tipo:</lable>
                             <select class="form-control" required="required" name="tipo" style="width: 500px;">

@@ -18,8 +18,41 @@
             }
         }
 
+        function tecla(){
+            evt = window.event;
+            var tecla = evt.keyCode;
+
+            if(!(tecla > 47 && tecla < 58)){
+                //alert('Precione apenas teclas numéricas');
+                evt.preventDefault();
+            }
+        }
+
+        function mascaraDdd(ddd) {
+
+            if(ddd.value.length == 0){
+                ddd.value = "(";
+            }
+
+            if (ddd.value.length == 3){
+                ddd.value += ")";
+            }
+
+        }
+
+        function mascaraTelf(telf){
+
+            if(telf.value.length == 4){
+                telf.value += "-";
+            }
+
+        }
+
         function removeTelf(id) {
-            id.parentNode.removeChild(id);
+
+            var child = document.getElementById(id)
+
+            child.parentNode.removeChild(child);
         }
 
         function criaTelf(add) {
@@ -65,10 +98,10 @@
 </head>
 <body>
 <c:import url="header.jsp"/>
-<c:if test="${mensagem != null}">
-    <h2>${mensagem}</h2>
-</c:if>
 <center>
+    <c:if test="${mensagem != null}">
+        <h2>${mensagem}</h2>
+    </c:if>
     <fieldset>
         <legend>Alterar Usuario</legend>
         <form action="updateUser" method="POST" id="form" onsubmit="return validaSenha()">
@@ -86,13 +119,13 @@
 
             <div class="form-group">
                 <lable>Senha:</lable>
-                <input type="password" name="senha" id="senha" style="width: 500px;" maxlength="100"
+                <input type="password" name="senha" id="senha" style="width: 500px;" maxlength="100" minlength="8"
                        class="form-control"
                        placeholder="*********" required="required"><br>
             </div>
             <div class="form-group">
                 <lable>Repetir Senha:</lable>
-                <input type="password" name="senah2" id="senha2" style="width: 500px;" maxlength="100"
+                <input type="password" name="senah2" id="senha2" style="width: 500px;" minlength="8" maxlength="100"
                        class="form-control"
                        placeholder="*********" required="required"><br>
             </div>
@@ -101,11 +134,11 @@
                     <td>
                         Telefones
                         <lable>DDD:</lable>
-                        <input type="text" name="ddd" style="width: 500px" maxlength="4" minlength="2"
+                        <input type="text" name="ddd" style="width: 500px" onkeypress="tecla(); mascaraDdd(this)" maxlength="4" minlength="2"
                                class="form-control"
                                placeholder="(00)" required="required" value="${usuario.telefones.get(0).ddd}"/><br>
-                        <lable>Telefone:</lable>
-                        <input type="text" name="telefone" style="width: 500px;" maxlength="10" minlength="8"
+                        <lable>Telefone: <h6>* Apenas 8 dígitos</h6></lable>
+                        <input type="text" name="telefone" style="width: 500px;" onkeypress="tecla(); mascaraTelf(this)" maxlength="9" minlength="8"
                                class="form-control"
                                placeholder="8888-8888" required="required" value="${usuario.telefones.get(0).numero}" /><br>
                         <lable>Tipo:</lable>
@@ -131,15 +164,15 @@
                                     Telefones
                                     <lable>DDD:</lable>
                                     <input type="text" name="ddd" style="width: 500px" maxlength="4" minlength="2"
-                                           class="form-control"
+                                           class="form-control" onkeypress="tecla(); mascaraDdd(this)"
                                            placeholder="(00)" required="required"
                                            value="${telefone.ddd}"/><br>
                                     <lable>Telefone:</lable>
-                                    <input type="text" name="telefone" style="width: 500px;" maxlength="10"
+                                    <input type="text" name="telefone" style="width: 500px;" maxlength="9"
                                            minlength="8"
                                            class="form-control"
                                            placeholder="8888-8888"
-                                           required="required" value="${telefone.numero}" /><br>
+                                           required="required" onkeypress="tecla(); mascaraTelf(this)" value="${telefone.numero}" /><br>
                                     <lable>Tipo:</lable>
                                     <select class="form-control" name="tipo" required="required" style="width: 500px;">
                                         <option value="">-------------Selecione-----------</option>

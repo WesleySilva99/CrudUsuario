@@ -7,12 +7,23 @@
           href="<%=request.getContextPath()%>/resources/bootstrap/css/bootstrap.min.css"/>
     <script type="text/javascript"
             src="<%=request.getContextPath()%>/resources/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+
+        function libera(){
+            if (confirm("Deseja realmente deletar esse usuário?")){
+                return true;
+            }
+            return false;
+        }
+
+    </script>
 
 </head>
 <body>
 
 <c:import url="header.jsp"/>
 <center>
+    <c:if test="${mensagem != null}"><h2>${mensagem}</h2></c:if>
     <table class="table" style="width: 80%">
         <tr>
             <th>Id</th>
@@ -63,7 +74,7 @@
                         <input type="hidden" name="id" value="${usuario.id}">
                         <button type="submit" class="btn-warning">Alterar</button>
                     </form>
-                    <form action="deleteUser" method="POST">
+                    <form action="deleteUser" method="POST" onsubmit="libera()">
                         <input type="hidden" name="id" value="${usuario.id}">
                         <button type="submit" class="btn-danger">Excluir</button>
                     </form>

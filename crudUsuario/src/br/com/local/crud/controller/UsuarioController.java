@@ -18,23 +18,41 @@ public class UsuarioController {
 
     @RequestMapping("exibirCadastroUsuario")
     public String exibirInclusao(){
-        System.out.println("Exibindo tela de cadastro de usuário");
         return "cadastrar";
     }
 
     @RequestMapping(value = "cadastrarUsuario", method = RequestMethod.POST)
     public String cadastrar(Usuario usuario, @RequestParam(value = "ddd") String[] ddd,
-                            @RequestParam(value = "telefone")  String[] telefone, @RequestParam(value = "tipo")  String[] tipo, Model model){
+                            @RequestParam(value = "telefone")  String[] telefone, @RequestParam(value = "tipo")  String[] tipo, Model model, HttpSession session){
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
 
         UsuarioDao dao = new UsuarioDao();
 
+        if (dao.buscarPorEmail(usuario.getEmail()) > 0){
+
+            model.addAttribute("mensagem", "Email já cadastrado");
+
+            if (usuarioLogado != null) {
+                return "forward:listarUsuario";
+            }
+
+            return "forward:login";
+
+        }
         usuario.setTelefones(Util.createASavePhoneList(ddd,telefone,tipo));
 
         dao.salvar(usuario);
 
         model.addAttribute("mensagem", "Usuario Cadastrado com sucesso!");
 
-        return "forward:exibirCadastroUsuario";
+        if(usuarioLogado != null){
+
+            return "forward:listarUsuario";
+
+        }
+
+        return "forward:login";
     }
 
     @RequestMapping("listarUsuario")
@@ -56,8 +74,18 @@ public class UsuarioController {
     }
 
     @RequestMapping("deleteUser")
-    public String delete(@RequestParam(value = "id") int id, Model model){
+    public String delete(@RequestParam(value = "id") int id, Model model, HttpSession session){
         UsuarioDao dao = new UsuarioDao();
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
+        if(usuarioLogado.getId() == id){
+
+            model.addAttribute("mensagem", "Não se pode excluir o usuario que está logado.");
+
+            return "forward:listarUsuario";
+
+        }
 
         dao.deleteUser(id);
 
@@ -82,13 +110,23 @@ public class UsuarioController {
 
     @RequestMapping("updateUser")
     public String update(Usuario u, @RequestParam(value = "ddd") String[] ddd,
-                         @RequestParam(value = "telefone")  String[] telefone, @RequestParam(value = "tipo")  String[] tipo, Model model){
+                         @RequestParam(value = "telefone")  String[] telefone, @RequestParam(value = "tipo")  String[] tipo, Model model, HttpSession session){
 
         UsuarioDao dao = new UsuarioDao();
 
         u.setTelefones(Util.createASavePhoneList(ddd,telefone,tipo));
 
+        u.setSenha(Util.gerarSenhaHasheada(u.getSenha()));
+
         dao.alterar(u);
+
+        Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+
+        if(usuarioLogado.getId() == u.getId()){
+
+            session.setAttribute("usuarioLogado", u);
+
+        }
 
         model.addAttribute("mensagem", "Usuario atualizado com sucesso!");
 

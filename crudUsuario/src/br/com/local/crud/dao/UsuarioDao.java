@@ -110,4 +110,16 @@ public class UsuarioDao {
         factory.close();
     }
 
+    public int buscarPorEmail(String email) {
+        EntityManagerFactory factory =
+                Persistence.createEntityManagerFactory(PERSISTENCE_UNIT);
+        EntityManager manager = factory.createEntityManager();
+
+
+        Query query = manager.createQuery("FROM Usuario u where u.email = :email");
+        query.setParameter("email", email);
+        List list = query.getResultList();
+        return list.size();
+    }
+
 }
